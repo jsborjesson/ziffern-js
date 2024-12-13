@@ -1,0 +1,3 @@
+[submodule "ziffern"]
+	path = ziffern
+	url = git@github.com:jsborjesson/ziffern.git

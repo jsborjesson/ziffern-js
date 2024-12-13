@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Ziffern</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            .flag {
+                display: flex;
+                flex-direction: column;
+                min-height: 100dvh;
+                font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+            }
+
+            .flag > * {
+                flex: 1;
+                display: flex;
+                justify-content: center;
+                padding: 1rem;
+            }
+
+            .schwarz {
+                background-color: black;
+                align-items: center;
+                color: whitesmoke;
+                font-size: 3rem;
+            }
+
+            .rot {
+                background-color: red;
+                align-items: stretch;
+            }
+            .rot input {
+                font-size: 2rem;
+            }
+
+            .gold {
+                background-color: #FC0;
+                align-items: center;
+                font-size: 2rem;
+            }
+
+            input {
+                text-align: center;
+                background-color: transparent;
+                outline: 0;
+                border: 0;
+                width: 100%;
+            }
+        </style>
+    </head>
+
+    <body>
+        <main class="flag">
+            <div class="schwarz">Ziffern</div>
+            <div class="rot">
+                <input type="text" autofocus name="number" id="number" autocomplete="off" onkeypress="updateText" />
+            </div>
+            <div class="gold" id="output"></div>
+        </main>
+
+        <script src="ziffern.js"></script>
+        <script>
+            const z = Opal.Ziffern.$new()
+            const inputEl = document.getElementById('number')
+            const outputEl = document.getElementById('output')
+
+            const emptyMsg = "Gib eine Zahl ein"
+            const errorMsg = "Ungültig"
+            function output(text) {
+                outputEl.innerHTML = text
+            }
+            output(emptyMsg)
+
+            function updateText(event) {
+                const number = parseFloat(event.target.value)
+
+                if (event.target.value === '') {
+                    output(emptyMsg)
+                } else if (!isNaN(number)) {
+                    output(z.$to_german(number))
+                } else {
+                    output(errorMsg)
+                }
+            }
+
+            inputEl.addEventListener("input", updateText)
+        </script>
+    </body>
+</html>
